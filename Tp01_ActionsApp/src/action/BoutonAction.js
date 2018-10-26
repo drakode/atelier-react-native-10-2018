@@ -16,9 +16,10 @@ import {StyleSheet, Text, TouchableHighlight} from 'react-native'
 const BoutonAction = ({nom}) => (
     <TouchableHighlight
         underlayColor='#efefef'
-        style={styles.bouton}>
-        <Text style={styles.texte}>
-            A changer
+        style={styles.bouton}
+        onPress={() => onPress(nom, action.title)}>
+                <Text style={nom == "Supprimer" ? styles.supprimer : action.finished ? styles.termine : styles.texte}>
+            { nom }
         </Text>
     </TouchableHighlight>
 )

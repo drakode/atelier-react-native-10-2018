@@ -14,7 +14,8 @@ export default class App extends React.Component {
     // état global de l'application
     // il y aura probalement d'autres informations à stocker
     state = {
-        texteSaisie: ''
+        texteSaisie: '',
+        actions: []
     }
 
     /**
@@ -23,7 +24,8 @@ export default class App extends React.Component {
      * @param nouvelleSaisie la valeur saisie
      */
     quandLaSaisieChange(nouvelleSaisie) {
-        console.log('la saisie à changée', nouvelleSaisie)
+        console.log('la saisie à changée', nouvelleSaisie);
+        this.setState({texteSaisie: nouvelleSaisie})
     }
 
     /**
@@ -31,6 +33,29 @@ export default class App extends React.Component {
      */
     validerNouvelleAction() {
         console.log('Vous avez cliqué sur Valider !')
+
+        if(this.state.texteSaisie !== '') {
+            var newActionsList = this.state.actions.concat({
+                title: this.state.texteSaisie,
+                finished: false
+            })
+            this.setState({ actions: newActionsList })
+            this.setState({ texteSaisie: '' })
+        }
+    }
+
+    pressOnAction = (nom, title) => {
+        nom == "Supprimer" ? this.deleteAction(title) : this.finishAction(title)
+    }
+    deleteAction(title) {
+        var newActions = this.state.actions.filter(action => action.title != title)
+        this.setState({ actions: newActions })
+    }
+    finishAction(title) {
+        var newActions = this.state.actions
+        var action = newActions.filter(action => action.title == title)[0]
+        action.finish = true
+        this.setState({ actions: newActions })
     }
 
     render() {
@@ -41,7 +66,7 @@ export default class App extends React.Component {
                 <ScrollView keyboardShouldPersistTaps='always' style={styles.content}>
                     <Entete/>
                     <Saisie texteSaisie={texteSaisie} evtTexteModifie={(titre) => this.quandLaSaisieChange(titre)}/>
-                    <ListeActions />
+                    <ListeActions listActions={this.state.actions} pressOnAction={this.pressOnAction}/>
                     <BoutonCreer onValider={() => this.validerNouvelleAction()}/>
                 </ScrollView>
                 <Menu/>

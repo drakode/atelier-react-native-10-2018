@@ -12,6 +12,7 @@ import {StyleSheet, Text, TouchableHighlight, View} from 'react-native'
 const BoutonCreer = ({onValider}) => (
     <View style={styles.conteneurBouton}>
         <TouchableHighlight
+            onPress={onValider}
             underlayColor='#efefef'
             style={styles.bouton}>
             <Text style={styles.valider}>

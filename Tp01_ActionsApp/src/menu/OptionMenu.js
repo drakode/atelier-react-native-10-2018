@@ -7,7 +7,7 @@ import {Text, TouchableHighlight, StyleSheet} from 'react-native'
  *
  *
  */
-const OptionMenu = () => (
+const OptionMenu = ({title}) => (
     <TouchableHighlight
         underlayColor='#efefef'
         style={[
@@ -15,7 +15,7 @@ const OptionMenu = () => (
             styles.border,
             styles.selected]}>
         <Text style={[styles.itemText, styles.bold]}>
-            TITRE
+            {title}
         </Text>
 
     </TouchableHighlight>
